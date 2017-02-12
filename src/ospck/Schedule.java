@@ -71,6 +71,7 @@ public class Schedule extends javax.swing.JFrame {
         randomwAT.setVisible(false);
         randomC.setVisible(false);
         stats.setVisible(false);
+        tQuantum.setVisible(false);
         bg();
     }
 
@@ -91,6 +92,7 @@ public class Schedule extends javax.swing.JFrame {
         randomC = new javax.swing.JButton();
         random = new javax.swing.JButton();
         stats = new javax.swing.JButton();
+        tQuantum = new javax.swing.JSpinner();
         backB = new javax.swing.JLabel();
         minB = new javax.swing.JLabel();
         closeB = new javax.swing.JLabel();
@@ -100,7 +102,7 @@ public class Schedule extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        scheduleType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "First Come First Serve", "Shortest Job First", "Shortest Remaining Time First", "Pre-emptive Priority", "Non Pre-emptive Priority", "Round Robin" }));
+        scheduleType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "First Come First Serve", "Shortest Job First", "Shortest Remaining Time First", "Non Pre-emptive Priority", "Pre-emptive Priority", "Round Robin" }));
         scheduleType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scheduleTypeActionPerformed(evt);
@@ -174,6 +176,10 @@ public class Schedule extends javax.swing.JFrame {
         });
         getContentPane().add(stats);
         stats.setBounds(400, 130, 200, 23);
+
+        tQuantum.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        getContentPane().add(tQuantum);
+        tQuantum.setBounds(289, 40, 150, 20);
 
         backB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/backB.png"))); // NOI18N
         backB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -480,6 +486,16 @@ public class Schedule extends javax.swing.JFrame {
         else
         {
             processNumber.setMaximum(20);
+        }
+        if(scheduleType.getSelectedIndex()==5)
+        {
+            scheduleType.setBounds(40, 40, 240, 20);
+            tQuantum.setVisible(true);
+        }
+        else
+        {
+            scheduleType.setBounds(40, 40, 400, 20);
+            tQuantum.setVisible(false);
         }
     }//GEN-LAST:event_scheduleTypeActionPerformed
 
@@ -1129,5 +1145,6 @@ public class Schedule extends javax.swing.JFrame {
     private javax.swing.JComboBox scheduleType;
     private javax.swing.JButton secondButton;
     private javax.swing.JButton stats;
+    private javax.swing.JSpinner tQuantum;
     // End of variables declaration//GEN-END:variables
 }
