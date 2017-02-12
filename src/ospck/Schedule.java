@@ -1087,7 +1087,7 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     compT[dummy] = a + 1;
                     turnT[dummy] = compT[dummy] - arrT[dummy];
-                    waitT[dummy] = turnT[dummy] - burT[dummy];
+                    waitT[dummy] = turnT[dummy] - iburT[dummy];
                     stat[dummy] = false;
                 }
                 //DISPLAY NUNG REMAINING SHITS
