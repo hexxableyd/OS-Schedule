@@ -12,6 +12,7 @@ package ospck;
 public class Member extends javax.swing.JFrame {
     int posX;
     int posY;
+    int ggX=0;
     /**
      * Creates new form Member
      */
@@ -33,6 +34,13 @@ public class Member extends javax.swing.JFrame {
         minB = new javax.swing.JLabel();
         closeB = new javax.swing.JLabel();
         handle = new javax.swing.JLabel();
+        pLabel = new javax.swing.JLabel();
+        deypsB = new javax.swing.JLabel();
+        denB = new javax.swing.JLabel();
+        jerkB = new javax.swing.JLabel();
+        jomB = new javax.swing.JLabel();
+        jonsB = new javax.swing.JLabel();
+        cendB = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +107,97 @@ public class Member extends javax.swing.JFrame {
             }
         });
         getContentPane().add(handle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 13));
+        getContentPane().add(pLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 220, 280));
+
+        deypsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deypsB.png"))); // NOI18N
+        deypsB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deypsB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deypsBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                deypsBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                deypsBMouseExited(evt);
+            }
+        });
+        getContentPane().add(deypsB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 150, 50));
+
+        denB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/densB.png"))); // NOI18N
+        denB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        denB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                denBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                denBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                denBMouseExited(evt);
+            }
+        });
+        getContentPane().add(denB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 150, 50));
+
+        jerkB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerkB.png"))); // NOI18N
+        jerkB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jerkB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jerkBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jerkBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jerkBMouseExited(evt);
+            }
+        });
+        getContentPane().add(jerkB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 150, 50));
+
+        jomB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jomB.png"))); // NOI18N
+        jomB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jomB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jomBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jomBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jomBMouseExited(evt);
+            }
+        });
+        getContentPane().add(jomB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 150, 50));
+
+        jonsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jonsB.png"))); // NOI18N
+        jonsB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jonsB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jonsBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jonsBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jonsBMouseExited(evt);
+            }
+        });
+        getContentPane().add(jonsB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, 50));
+
+        cendB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cendB.png"))); // NOI18N
+        cendB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cendB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cendBMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cendBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cendBMouseExited(evt);
+            }
+        });
+        getContentPane().add(cendB, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 150, 50));
 
         bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/bgm.png"))); // NOI18N
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 400));
@@ -157,6 +256,125 @@ public class Member extends javax.swing.JFrame {
         posY = evt.getY();
     }//GEN-LAST:event_handleMousePressed
 
+    private void denBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/dens.png")));
+        denB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/densB-H.png")));
+        ggX = 1;
+    }//GEN-LAST:event_denBMouseClicked
+
+    private void denBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denBMouseEntered
+        // TODO add your handling code here:
+        denB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/densB-H.png")));
+    }//GEN-LAST:event_denBMouseEntered
+
+    private void denBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denBMouseExited
+        // TODO add your handling code here:
+        if(ggX!=1)
+        {
+            denB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/densB.png")));
+        }
+    }//GEN-LAST:event_denBMouseExited
+
+    private void deypsBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deypsBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deyps.png")));
+        deypsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deypsB-H.png")));
+        ggX = 2;
+    }//GEN-LAST:event_deypsBMouseClicked
+
+    private void jerkBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jerkBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerk.png")));
+        jerkB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerkB-H.png")));
+        ggX = 3;
+    }//GEN-LAST:event_jerkBMouseClicked
+
+    private void jomBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jomBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jom.png")));
+        jomB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jomB-H.png")));
+        ggX = 4;
+    }//GEN-LAST:event_jomBMouseClicked
+
+    private void jonsBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jonsBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jons.png")));
+        jonsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jonsB-H.png")));
+        ggX = 5;
+    }//GEN-LAST:event_jonsBMouseClicked
+
+    private void cendBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cendBMouseClicked
+        reset();
+        pLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cend.png")));
+        cendB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cendB-H.png")));
+        ggX = 6;
+    }//GEN-LAST:event_cendBMouseClicked
+
+    private void deypsBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deypsBMouseEntered
+        deypsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deypsB-H.png")));
+    }//GEN-LAST:event_deypsBMouseEntered
+
+    private void jerkBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jerkBMouseEntered
+        jerkB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerkB-H.png")));
+    }//GEN-LAST:event_jerkBMouseEntered
+
+    private void jomBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jomBMouseEntered
+        jomB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jomB-H.png")));
+    }//GEN-LAST:event_jomBMouseEntered
+
+    private void jonsBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jonsBMouseEntered
+        jonsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jonsB-H.png")));
+    }//GEN-LAST:event_jonsBMouseEntered
+
+    private void cendBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cendBMouseEntered
+        cendB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cendB-H.png")));
+    }//GEN-LAST:event_cendBMouseEntered
+
+    private void deypsBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deypsBMouseExited
+        if(ggX!=2)
+        {
+            deypsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deypsB.png")));
+        }
+    }//GEN-LAST:event_deypsBMouseExited
+
+    private void jerkBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jerkBMouseExited
+        if(ggX!=3)
+        {
+            jerkB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerkB.png")));
+        }
+    }//GEN-LAST:event_jerkBMouseExited
+
+    private void jomBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jomBMouseExited
+        if(ggX!=4)
+        {
+            jomB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jomB.png")));
+        }
+    }//GEN-LAST:event_jomBMouseExited
+
+    private void jonsBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jonsBMouseExited
+        if(ggX!=5)
+        {
+            jonsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jonsB.png")));
+        }
+    }//GEN-LAST:event_jonsBMouseExited
+
+    private void cendBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cendBMouseExited
+        if(ggX!=6)
+        {
+            cendB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cendB.png")));
+        }
+    }//GEN-LAST:event_cendBMouseExited
+    
+    private void reset()
+    {
+        denB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/densB.png")));
+        deypsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/deypsB.png")));
+        jerkB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jerkB.png")));
+        jomB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jomB.png")));
+        jonsB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/jonsB.png")));
+        cendB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/cendB.png")));
+    }
     /**
      * @param args the command line arguments
      */
@@ -195,8 +413,15 @@ public class Member extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backB;
     private javax.swing.JLabel bg;
+    private javax.swing.JLabel cendB;
     private javax.swing.JLabel closeB;
+    private javax.swing.JLabel denB;
+    private javax.swing.JLabel deypsB;
     private javax.swing.JLabel handle;
+    private javax.swing.JLabel jerkB;
+    private javax.swing.JLabel jomB;
+    private javax.swing.JLabel jonsB;
     private javax.swing.JLabel minB;
+    private javax.swing.JLabel pLabel;
     // End of variables declaration//GEN-END:variables
 }
