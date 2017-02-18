@@ -1132,6 +1132,103 @@ public class Schedule extends javax.swing.JFrame {
             aveTurn = ((float)totalTurn / (float)pNum);
             aveWait = ((float)totalWait / (float)pNum);
         }
+        
+        private void RR()
+        {
+//            preemptive
+//            requires TimeQuantum , ProcessNumber , ArrivalTime , BurstTime
+//            results CompletionTime, TurnAroundTime, WatingTime , ATAT, AWT
+            processSort();
+            for (int b = 0; b < pNum; b++)
+            {
+                stat[b] = true;
+            }
+            for( int x = 0 ; x < pNum ; x++)
+            {
+                if(x==0)
+                {
+                    compT[x] = burT[x] + arrT[x];
+                }
+                else
+                {
+                    compT[x] = burT[x] + compT[x-1];
+                }
+                //LAHAT NG MATITIRANG PROCESSES DITO MALALAGAY
+                remain = "<html>";
+                remainLabel[v] = new JLabel();
+                for( int j=0 ; j<pNum ; j++)
+                {
+                    if(stat[j])
+                    {
+                        remain+="P"+proNum[j]+ "<br>";
+                    }
+                }
+                remain+= "</html>";
+                //
+                
+                //COMPUTATIONS FOR TURNAROUND AND WAIT TIME
+                turnT[x] = compT[x] - arrT[x];
+                waitT[x] = turnT[x] - burT[x];
+                stat[x] = false;
+                //
+                
+                //DISPLAY NUNG REMAINING SHITS
+                remainLabel[v].setText(remain);
+                remainLabel[v].setVerticalAlignment(javax.swing.SwingConstants.TOP);
+                remainLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                getContentPane().add(remainLabel[v]);
+                remainLabel[v].setBounds(timeJ, 210, 40, 400);
+                
+                //DISPLAY NUNG PICKED SHIT
+                pickedLabel[v] = new JLabel();
+                pickedLabel[v].setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+                pickedLabel[v].setText("P"+proNum[x]);
+                getContentPane().add(pickedLabel[v]);
+                pickedLabel[v].setBounds(jakol, 150, 50, 30);
+                pickedLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                
+                //DISPLAY NUNG CURRENT TIME
+                timeLabel[v] = new JLabel();
+                if(x==0)
+                {
+                    timeLabel[v].setText("0");
+                }
+                else
+                {
+                    timeLabel[v].setText(""+compT[x-1]);  
+                }
+                getContentPane().add(timeLabel[v]);
+                timeLabel[v].setBounds(timeJ, 190, 34, 14);
+                timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                
+                //INCREMENTS NUNG MGA SHIT
+                v++;
+                jakol+=40;
+                timeJ+=40;
+                if(timeJ > xx)
+                {
+                    xx+=105;
+                    this.setSize(xx,xy);
+                    System.out.println(xx);
+                }
+            }
+            //
+                timeLabel[v] = new JLabel();
+                timeLabel[v].setText(""+compT[pNum-1]);  
+                getContentPane().add(timeLabel[v]);
+                timeLabel[v].setBounds(timeJ, 190, 34, 14);
+                timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+            //INDIVIDUAL STEPS
+            for (int y = 0; y < pNum; y++)
+            {
+                totalTurn += turnT[y];
+                totalWait += waitT[y];
+            }
+            aveTurn = ((float)totalTurn / (float)pNum);
+            aveWait = ((float)totalWait / (float)pNum);
+            // tb.Text += "AVERAGE TURN-AROUND TIME: " + ((float)totalTurn / (float)pNum);
+            // tb.Text += "\r\nAVERAGE WAITING TIME: " + ((float)totalWait / (float)pNum);
+        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backB;
     private javax.swing.JLabel closeB;
