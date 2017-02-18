@@ -14,7 +14,7 @@ import javax.swing.JSpinner;
  */
 public class Schedule extends javax.swing.JFrame {
     int px = 70,ax = 170,bx = 320;
-    int posX, posY;
+    int posX, posY; //comment
     int bRand = 50;
     int xy = 150, xx=650;
     int atY=160;
