@@ -261,13 +261,13 @@ public class Schedule extends javax.swing.JFrame {
         random.setVisible(true);
         randomwAT.setVisible(true);
         randomC.setVisible(true);
-        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4)
+        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
         {
                 bRand = 5;
         }
         for(int i=0;i<processNumber.getValue();i++)
         {
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
             {
                 prio[i]=new JSpinner();
                 prio[i].setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
@@ -319,7 +319,7 @@ public class Schedule extends javax.swing.JFrame {
             burT[i] = (Integer) bt[i].getValue();
             at[i].setVisible(false);
             bt[i].setVisible(false);
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
             {
                 prioT[i] = (Integer) prio[i].getValue();
                 prio[i].setVisible(false);
@@ -345,7 +345,7 @@ public class Schedule extends javax.swing.JFrame {
                 prio[i].setModel(new javax.swing.SpinnerNumberModel( (int )(Math.random() * 10 + 1) , 1, 10, 1));
             }
             at[i].setModel(new javax.swing.SpinnerNumberModel(0, 0, 50, 1));
-
+            
             bt[i].setModel(new javax.swing.SpinnerNumberModel((int )(Math.random() * bRand + 1), 0, 50, 1));
         }
     }//GEN-LAST:event_randomwATActionPerformed
@@ -410,7 +410,7 @@ public class Schedule extends javax.swing.JFrame {
         s.btLabel[disp].setFont(new java.awt.Font("Times New Roman", 1, 18));
         s.btLabel[disp].setForeground(new java.awt.Color(255, 255, 255));
         s.btLabel[disp].setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4)
+        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
         {
             s.btLabel[disp].setText(Integer.toString(iburT[disp]));
         }
@@ -592,6 +592,7 @@ public class Schedule extends javax.swing.JFrame {
             for (int b = 0; b < pNum; b++)
             {
                 stat[b] = true;
+                compT[b] = 0;
             }
             for( int x = 0 ; x < pNum ; x++)
             {
@@ -603,6 +604,7 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     compT[x] = burT[x] + compT[x-1];
                 }
+                System.out.println(""+compT[x]);
                 //LAHAT NG MATITIRANG PROCESSES DITO MALALAGAY
                 remain = "<html>";
                 remainLabel[v] = new JLabel();
@@ -610,12 +612,26 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     if(stat[j])
                     {
-                        remain+="P"+proNum[j]+ "<br>";
+                        
+                        if(x==0)
+                        {
+                            if(j==0)
+                            remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[x]+"</b></font><br>";
+                        }
+                        else if(arrT[j]<=compT[x-1])
+                        {   
+                            System.out.println(arrT[j]+"+"+compT[x]);
+                            if(j==x)
+                            {
+                                remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"</b></font><br>";
+                            }
+                            else
+                            {
+                                remain+="P"+proNum[j]+ "<br>";
+                            }
+                        }
                     }
                 }
-                remain+= "</html>";
-                //
-                
                 //COMPUTATIONS FOR TURNAROUND AND WAIT TIME
                 turnT[x] = compT[x] - arrT[x];
                 waitT[x] = turnT[x] - burT[x];
@@ -732,7 +748,17 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     if(stat[j])
                     {
-                        remain+="P"+proNum[j]+"("+ burT[j] + ")<br>";
+                        if(arrT[j]<=a)
+                        {
+                            if(j==dummy)
+                            {
+                                remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"("+ burT[j] + ")</b></font><br>";
+                            }
+                            else
+                            {
+                                remain+="P"+proNum[j]+"("+ burT[j] + ")<br>";
+                            }
+                        }
                     }
                 }
                 remain+= "</html>";
@@ -844,7 +870,17 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     if(stat[j])
                     {
-                        remain+="P"+proNum[j]+"("+ burT[j] + ")<br>";
+                        if(arrT[j]<=a)
+                        {
+                            if(j==dummy)
+                            {
+                                remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"("+ burT[j] + ")</b></font><br>";
+                            }
+                            else
+                            {
+                                remain+="P"+proNum[j]+"("+ burT[j] + ")<br>";
+                            }
+                        }
                     }
                 }
                 remain+= "</html>";
@@ -944,10 +980,17 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     if(arrT[j]<=a)
                     {
-                    if(stat[j])
-                    {
-                        remain+="P"+proNum[j]+"("+ prioT[j] + ")<br>";
-                    }
+                        if(stat[j])
+                        {
+                            if(j==dummy)
+                                {
+                                    remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"("+ prioT[j] + ")</b></font><br>";
+                                }
+                                else
+                                {
+                                remain+="P"+proNum[j]+"("+ prioT[j] + ")<br>";
+                                }
+                        }
                     }
                 }
                 remain+= "</html>";
@@ -1059,10 +1102,17 @@ public class Schedule extends javax.swing.JFrame {
                 {
                     if(arrT[j]<=a)
                     {
-                    if(stat[j])
-                    {
-                        remain+="P"+proNum[j]+"("+ prioT[j] + ")<br>";
-                    }
+                        if(stat[j])
+                        {
+                            if(j==dummy)
+                            {
+                                remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"("+ prioT[j] + ")</b></font><br>";
+                            }
+                            else
+                            {
+                                remain+="P"+proNum[j]+"("+ prioT[j] + ")<br>";
+                            }
+                        }
                     }
                 }
                 remain+= "</html>";
@@ -1117,7 +1167,7 @@ public class Schedule extends javax.swing.JFrame {
                     System.out.println(xx);
                 }
             }
-            timeLabel[v] = new JLabel();
+                timeLabel[v] = new JLabel();
                 timeLabel[v].setText(""+compT[dummy]);  
                 getContentPane().add(timeLabel[v]);
                 timeLabel[v].setBounds(timeJ, 190, 34, 14);
@@ -1136,8 +1186,7 @@ public class Schedule extends javax.swing.JFrame {
         
         private void RR()
         {     
-            int TimeQuantum = 2; // kunyare may given na 2 sa TQ
-            int dummy = 0;
+            int TimeQuantum = (Integer) tQuantum.getValue(); // kunyare may given na 2 sa TQ
             int totalTime = 0;
             int computedTime = 0;
             int selectedPNO = 0;
@@ -1154,11 +1203,76 @@ public class Schedule extends javax.swing.JFrame {
                     System.out.println("PNO NUMERO : " + selectedPNO);
                     System.out.println("PNO NUMERO WITH BT" + selectedPNO + " (" + burT[selectedPNO] +  ") ");
                     System.out.println("COMPUTED TIME " + computedTime + "PNO " + selectedPNO);
+                    
+                    //REMAIN LABEL
+                    remain = "<html>";
+                    remainLabel[v] = new JLabel();
+                    for( int j=0 ; j<pNum ; j++)
+                    {
+                        if(arrT[j]<=computedTime)
+                        {
+                            if(stat[j])
+                            {
+                                if(j == selectedPNO)
+                                {
+                                    remain+="<font face=\"Georgia\" color = \"#5dddd7\"><b>P"+proNum[j]+"("+ burT[j] + ")</b></font><br>";
+                                }
+                                else
+                                {
+                                    remain+="P"+proNum[j]+"("+ burT[j] + ")<br>";
+                                }
+                            }
+                        }
+                    }
+                    remain+= "</html>";
+                    //
+                    
                     for(int i = 0; i < TimeQuantum; i++){
                         if (burT[selectedPNO] != 0){
                             burT[selectedPNO]--; //paisa isang bawas lang nang TQ
                             computedTime++;
                         }
+                    }
+                    
+                    //DISPLAY NUNG CURRENT TIME
+                    timeLabel[v] = new JLabel();
+                    if(computedTime==1)
+                    {
+                        timeLabel[v].setText("0");
+                    }
+                    else
+                    {
+                        timeLabel[v].setText(""+(computedTime-1));  
+                    }
+                    getContentPane().add(timeLabel[v]);
+                    timeLabel[v].setBounds(timeJ, 190, 34, 14);
+                    timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                    //
+                    
+                    //DISPLAY NUNG REMAINING SHITS
+                    remainLabel[v].setText(remain);
+                    remainLabel[v].setVerticalAlignment(javax.swing.SwingConstants.TOP);
+                    getContentPane().add(remainLabel[v]);
+                    remainLabel[v].setBounds(timeJ, 210, 60, 400);
+                    remainLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                
+                    //DISPLAY NUNG PICKED SHIT
+                    pickedLabel[v] = new JLabel();
+                    pickedLabel[v].setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+                    pickedLabel[v].setText("P"+proNum[selectedPNO]);
+                    getContentPane().add(pickedLabel[v]);
+                    pickedLabel[v].setBounds(jakol, 150, 50, 30);
+                    pickedLabel[v].setForeground(new java.awt.Color(255, 255, 255));
+                
+                    //INCREMENTS NUNG MGA SHIT
+                    v++;
+                    jakol+=50;
+                    timeJ+=50;
+                    if(timeJ > xx)
+                    {
+                       xx+=95;
+                       this.setSize(xx,xy);
+                       System.out.println(xx);
                     }
                 }
                 else if(!stat[selectedPNO] && arrT[selectedPNO] <= computedTime && burT[selectedPNO] != 0){
@@ -1166,10 +1280,13 @@ public class Schedule extends javax.swing.JFrame {
                 }
                 
                 if (burT[selectedPNO] == 0){ //kapag wala na laman tong PNO
-                    compT[selectedPNO] = computedTime + 1;
-                    turnT[selectedPNO] = compT[selectedPNO] - arrT[selectedPNO];
-                    waitT[selectedPNO] = turnT[selectedPNO] - iburT[selectedPNO];
-                    stat[selectedPNO] = false;
+                    if(stat[selectedPNO])
+                    {
+                        compT[selectedPNO] = computedTime;
+                        turnT[selectedPNO] = compT[selectedPNO] - arrT[selectedPNO];
+                        waitT[selectedPNO] = turnT[selectedPNO] - iburT[selectedPNO];
+                        stat[selectedPNO] = false;
+                    }
                 }
                 
                 if(selectedPNO == pNum){
@@ -1179,6 +1296,12 @@ public class Schedule extends javax.swing.JFrame {
                 }
                
             }while(computedTime < totalTime);
+            
+            timeLabel[v] = new JLabel();
+            timeLabel[v].setText(""+totalTime);  
+            getContentPane().add(timeLabel[v]);
+            timeLabel[v].setBounds(timeJ, 190, 34, 14);
+            timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
             
             for (int y = 0; y < pNum; y++)
             {
