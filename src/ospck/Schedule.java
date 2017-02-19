@@ -1161,7 +1161,7 @@ public class Schedule extends javax.swing.JFrame {
                         }
                     }
                 }
-                else if(!stat[selectedPNO] && burT[selectedPNO] <= computedTime && burT[selectedPNO] != 0){
+                else if(!stat[selectedPNO] && arrT[selectedPNO] <= computedTime && burT[selectedPNO] != 0){
                     stat[selectedPNO] = true; //kapag never pa nakakasama QUEUE
                 }
                 
