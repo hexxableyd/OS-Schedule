@@ -14,7 +14,7 @@ import javax.swing.JSpinner;
  */
 public class Schedule extends javax.swing.JFrame {
     int px = 70,ax = 170,bx = 320;
-    int posX, posY;
+    int posX, posY; //comment
     int bRand = 50;
     int xy = 150, xx=650;
     int atY=160;
@@ -267,7 +267,7 @@ public class Schedule extends javax.swing.JFrame {
         }
         for(int i=0;i<processNumber.getValue();i++)
         {
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
             {
                 prio[i]=new JSpinner();
                 prio[i].setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
@@ -319,7 +319,7 @@ public class Schedule extends javax.swing.JFrame {
             burT[i] = (Integer) bt[i].getValue();
             at[i].setVisible(false);
             bt[i].setVisible(false);
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
             {
                 prioT[i] = (Integer) prio[i].getValue();
                 prio[i].setVisible(false);
@@ -332,6 +332,7 @@ public class Schedule extends javax.swing.JFrame {
             case 2: SRTF(); break;
             case 3: NPP(); break;
             case 4: PP(); break;
+            case 5: RR(); break;
         }
         bg();
     }//GEN-LAST:event_secondButtonActionPerformed
@@ -479,7 +480,7 @@ public class Schedule extends javax.swing.JFrame {
 
     private void scheduleTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleTypeActionPerformed
         // TODO add your handling code here:
-        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4)
+        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5 )
         {
             processNumber.setMaximum(5);
         }
@@ -1131,6 +1132,63 @@ public class Schedule extends javax.swing.JFrame {
             //AVERAGES
             aveTurn = ((float)totalTurn / (float)pNum);
             aveWait = ((float)totalWait / (float)pNum);
+        }
+        
+        private void RR()
+        {     
+            int TimeQuantum = 2; // kunyare may given na 2 sa TQ
+            int dummy = 0;
+            int totalTime = 0;
+            int computedTime = 0;
+            int selectedPNO = 0;
+            
+            
+            processSort();
+            for (int b = 0; b < pNum; b++){
+//                stat[b] = true; // hindi lahat maipapasok sa QUEUE
+                iburT[b] = burT[b];
+                totalTime += burT[b];
+            }
+            do{ //loop lang ulit paulit paulit sa buong process
+                if(stat[selectedPNO]){ //kapag kasama na sa QUEUE
+                    System.out.println("PNO NUMERO : " + selectedPNO);
+                    System.out.println("PNO NUMERO WITH BT" + selectedPNO + " (" + burT[selectedPNO] +  ") ");
+                    System.out.println("COMPUTED TIME " + computedTime + "PNO " + selectedPNO);
+                    for(int i = 0; i < TimeQuantum; i++){
+                        if (burT[selectedPNO] != 0){
+                            burT[selectedPNO]--; //paisa isang bawas lang nang TQ
+                            computedTime++;
+                        }
+                    }
+                }
+                else if(!stat[selectedPNO] && arrT[selectedPNO] <= computedTime && burT[selectedPNO] != 0){
+                    stat[selectedPNO] = true; //kapag never pa nakakasama QUEUE
+                }
+                
+                if (burT[selectedPNO] == 0){ //kapag wala na laman tong PNO
+                    compT[selectedPNO] = computedTime + 1;
+                    turnT[selectedPNO] = compT[selectedPNO] - arrT[selectedPNO];
+                    waitT[selectedPNO] = turnT[selectedPNO] - iburT[selectedPNO];
+                    stat[selectedPNO] = false;
+                }
+                
+                if(selectedPNO == pNum){
+                    selectedPNO = 0;
+                }else{
+                    ++selectedPNO;
+                }
+               
+            }while(computedTime < totalTime);
+            
+            for (int y = 0; y < pNum; y++)
+            {
+                totalTurn += turnT[y];
+                totalWait += waitT[y];
+            }
+            aveTurn = ((float)totalTurn / (float)pNum);
+            aveWait = ((float)totalWait / (float)pNum);
+            System.out.println("Average turn_around_time : " + aveTurn);
+            System.out.println("Average waiting_time     : " + aveWait);
         }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backB;
