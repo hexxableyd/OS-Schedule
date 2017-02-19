@@ -267,7 +267,7 @@ public class Schedule extends javax.swing.JFrame {
         }
         for(int i=0;i<processNumber.getValue();i++)
         {
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
             {
                 prio[i]=new JSpinner();
                 prio[i].setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
@@ -319,7 +319,7 @@ public class Schedule extends javax.swing.JFrame {
             burT[i] = (Integer) bt[i].getValue();
             at[i].setVisible(false);
             bt[i].setVisible(false);
-            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4)
+            if(scheduleType.getSelectedIndex()==3 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5)
             {
                 prioT[i] = (Integer) prio[i].getValue();
                 prio[i].setVisible(false);
@@ -332,6 +332,7 @@ public class Schedule extends javax.swing.JFrame {
             case 2: SRTF(); break;
             case 3: NPP(); break;
             case 4: PP(); break;
+            case 5: RR(); break;
         }
         bg();
     }//GEN-LAST:event_secondButtonActionPerformed
@@ -479,7 +480,7 @@ public class Schedule extends javax.swing.JFrame {
 
     private void scheduleTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleTypeActionPerformed
         // TODO add your handling code here:
-        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4)
+        if(scheduleType.getSelectedIndex()==2 || scheduleType.getSelectedIndex()==4 || scheduleType.getSelectedIndex()==5 )
         {
             processNumber.setMaximum(5);
         }
@@ -1134,91 +1135,51 @@ public class Schedule extends javax.swing.JFrame {
         }
         
         private void RR()
-        {
-//            preemptive
-//            requires TimeQuantum , ProcessNumber , ArrivalTime , BurstTime
-//            results CompletionTime, TurnAroundTime, WatingTime , ATAT, AWT
+        {     
+            int TimeQuantum = 2; // kunyare may given na 2 sa TQ
+            int dummy = 0;
+            int totalTime = 0;
+            int computedTime = 0;
+            int selectedPNO = 0;
+            
+            
             processSort();
-            for (int b = 0; b < pNum; b++)
-            {
-                stat[b] = true;
+            for (int b = 0; b < pNum; b++){
+//                stat[b] = true; // hindi lahat maipapasok sa QUEUE
+                iburT[b] = burT[b];
+                totalTime += burT[b];
             }
-            for( int x = 0 ; x < pNum ; x++)
-            {
-                if(x==0)
-                {
-                    compT[x] = burT[x] + arrT[x];
-                }
-                else
-                {
-                    compT[x] = burT[x] + compT[x-1];
-                }
-                //LAHAT NG MATITIRANG PROCESSES DITO MALALAGAY
-                remain = "<html>";
-                remainLabel[v] = new JLabel();
-                for( int j=0 ; j<pNum ; j++)
-                {
-                    if(stat[j])
-                    {
-                        remain+="P"+proNum[j]+ "<br>";
+            do{ //loop lang ulit paulit paulit sa buong process
+                if(stat[selectedPNO]){ //kapag kasama na sa QUEUE
+                    System.out.println("PNO NUMERO : " + selectedPNO);
+                    System.out.println("PNO NUMERO WITH BT" + selectedPNO + " (" + burT[selectedPNO] +  ") ");
+                    System.out.println("COMPUTED TIME " + computedTime + "PNO " + selectedPNO);
+                    for(int i = 0; i < TimeQuantum; i++){
+                        if (burT[selectedPNO] != 0){
+                            burT[selectedPNO]--; //paisa isang bawas lang nang TQ
+                            computedTime++;
+                        }
                     }
                 }
-                remain+= "</html>";
-                //
-                
-                //COMPUTATIONS FOR TURNAROUND AND WAIT TIME
-                turnT[x] = compT[x] - arrT[x];
-                waitT[x] = turnT[x] - burT[x];
-                stat[x] = false;
-                //
-                
-                //DISPLAY NUNG REMAINING SHITS
-                remainLabel[v].setText(remain);
-                remainLabel[v].setVerticalAlignment(javax.swing.SwingConstants.TOP);
-                remainLabel[v].setForeground(new java.awt.Color(255, 255, 255));
-                getContentPane().add(remainLabel[v]);
-                remainLabel[v].setBounds(timeJ, 210, 40, 400);
-                
-                //DISPLAY NUNG PICKED SHIT
-                pickedLabel[v] = new JLabel();
-                pickedLabel[v].setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-                pickedLabel[v].setText("P"+proNum[x]);
-                getContentPane().add(pickedLabel[v]);
-                pickedLabel[v].setBounds(jakol, 150, 50, 30);
-                pickedLabel[v].setForeground(new java.awt.Color(255, 255, 255));
-                
-                //DISPLAY NUNG CURRENT TIME
-                timeLabel[v] = new JLabel();
-                if(x==0)
-                {
-                    timeLabel[v].setText("0");
+                else if(!stat[selectedPNO] && burT[selectedPNO] <= computedTime && burT[selectedPNO] != 0){
+                    stat[selectedPNO] = true; //kapag never pa nakakasama QUEUE
                 }
-                else
-                {
-                    timeLabel[v].setText(""+compT[x-1]);  
-                }
-                getContentPane().add(timeLabel[v]);
-                timeLabel[v].setBounds(timeJ, 190, 34, 14);
-                timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
                 
-                //INCREMENTS NUNG MGA SHIT
-                v++;
-                jakol+=40;
-                timeJ+=40;
-                if(timeJ > xx)
-                {
-                    xx+=105;
-                    this.setSize(xx,xy);
-                    System.out.println(xx);
+                if (burT[selectedPNO] == 0){ //kapag wala na laman tong PNO
+                    compT[selectedPNO] = computedTime + 1;
+                    turnT[selectedPNO] = compT[selectedPNO] - arrT[selectedPNO];
+                    waitT[selectedPNO] = turnT[selectedPNO] - iburT[selectedPNO];
+                    stat[selectedPNO] = false;
                 }
-            }
-            //
-                timeLabel[v] = new JLabel();
-                timeLabel[v].setText(""+compT[pNum-1]);  
-                getContentPane().add(timeLabel[v]);
-                timeLabel[v].setBounds(timeJ, 190, 34, 14);
-                timeLabel[v].setForeground(new java.awt.Color(255, 255, 255));
-            //INDIVIDUAL STEPS
+                
+                if(selectedPNO == pNum){
+                    selectedPNO = 0;
+                }else{
+                    ++selectedPNO;
+                }
+               
+            }while(computedTime < totalTime);
+            
             for (int y = 0; y < pNum; y++)
             {
                 totalTurn += turnT[y];
@@ -1226,8 +1187,8 @@ public class Schedule extends javax.swing.JFrame {
             }
             aveTurn = ((float)totalTurn / (float)pNum);
             aveWait = ((float)totalWait / (float)pNum);
-            // tb.Text += "AVERAGE TURN-AROUND TIME: " + ((float)totalTurn / (float)pNum);
-            // tb.Text += "\r\nAVERAGE WAITING TIME: " + ((float)totalWait / (float)pNum);
+            System.out.println("Average turn_around_time : " + aveTurn);
+            System.out.println("Average waiting_time     : " + aveWait);
         }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backB;
