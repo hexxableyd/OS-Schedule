@@ -5,9 +5,10 @@
  */
 package ospck;
 
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-
+import java.awt.Toolkit;
 /**
  *
  * @author QWERTYnfinity
@@ -73,6 +74,7 @@ public class Schedule extends javax.swing.JFrame {
         stats.setVisible(false);
         tQuantum.setVisible(false);
         bg();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("assets/res/icon.png")));
     }
 
     /**

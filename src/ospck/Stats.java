@@ -5,6 +5,7 @@
  */
 package ospck;
 
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 /**
@@ -31,6 +32,7 @@ public class Stats extends javax.swing.JFrame {
         initComponents();
         this.setLocation(100,100);
         this.setSize(600,750);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("assets/res/icon.png")));
     }
 
     /**

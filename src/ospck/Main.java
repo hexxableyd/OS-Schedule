@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package ospck;
+import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -18,6 +22,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.setLocation(100,100);
+        setIcon();
     }
 
     /**
@@ -199,4 +204,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel minB;
     private javax.swing.JLabel startB;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("assets/res/icon.png")));
+    }
 }

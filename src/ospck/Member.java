@@ -5,6 +5,8 @@
  */
 package ospck;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author QWERTYnfinity
@@ -19,6 +21,7 @@ public class Member extends javax.swing.JFrame {
     public Member() {
         initComponents();
         this.setLocation(100,100);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("assets/res/icon.png")));
     }
 
     /**
