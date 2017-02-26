@@ -21,8 +21,8 @@ public class Schedule extends javax.swing.JFrame {
     final int num = 21;
     int y=0,v=0;
     int pNum=0;
-    int jakol = 50;
-    int timeJ = 30;
+    int jakol = 55;
+    int timeJ = 35;
     String remain="";
     //MAIN
     int[] proNum = new int[21];
@@ -103,22 +103,32 @@ public class Schedule extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         scheduleType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "First Come First Serve", "Shortest Job First", "Shortest Remaining Time First", "Non Pre-emptive Priority", "Pre-emptive Priority", "Round Robin" }));
+        scheduleType.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         scheduleType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scheduleTypeActionPerformed(evt);
             }
         });
         getContentPane().add(scheduleType);
-        scheduleType.setBounds(40, 40, 400, 20);
+        scheduleType.setBounds(40, 40, 400, 30);
 
-        firstButton.setText("OK GOOD");
+        firstButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/nextB.png"))); // NOI18N
+        firstButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        firstButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                firstButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                firstButtonMouseExited(evt);
+            }
+        });
         firstButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstButtonActionPerformed(evt);
             }
         });
         getContentPane().add(firstButton);
-        firstButton.setBounds(450, 40, 140, 23);
+        firstButton.setBounds(450, 40, 140, 30);
 
         processNumber.setMajorTickSpacing(1);
         processNumber.setMaximum(20);
@@ -129,57 +139,106 @@ public class Schedule extends javax.swing.JFrame {
         processNumber.setSnapToTicks(true);
         processNumber.setToolTipText("Process Numbers Up to 20 Processes Only");
         processNumber.setValue(1);
+        processNumber.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(processNumber);
         processNumber.setBounds(40, 70, 560, 50);
 
-        secondButton.setText("FINISH");
+        secondButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/finishB.png"))); // NOI18N
+        secondButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        secondButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                secondButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                secondButtonMouseExited(evt);
+            }
+        });
         secondButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 secondButtonActionPerformed(evt);
             }
         });
         getContentPane().add(secondButton);
-        secondButton.setBounds(450, 40, 140, 23);
+        secondButton.setBounds(450, 40, 140, 30);
 
-        randomwAT.setText("Randomize with 0 AT");
+        randomwAT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random3B.png"))); // NOI18N
+        randomwAT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        randomwAT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                randomwATMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                randomwATMouseExited(evt);
+            }
+        });
         randomwAT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 randomwATActionPerformed(evt);
             }
         });
         getContentPane().add(randomwAT);
-        randomwAT.setBounds(450, 130, 150, 23);
+        randomwAT.setBounds(450, 130, 150, 30);
 
-        randomC.setText("Randomize Completely");
+        randomC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random1B.png"))); // NOI18N
+        randomC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        randomC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                randomCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                randomCMouseExited(evt);
+            }
+        });
         randomC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 randomCActionPerformed(evt);
             }
         });
         getContentPane().add(randomC);
-        randomC.setBounds(40, 130, 150, 23);
+        randomC.setBounds(40, 130, 150, 30);
 
-        random.setText("Randomize inc AT");
+        random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random2B.png"))); // NOI18N
+        random.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        random.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                randomMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                randomMouseExited(evt);
+            }
+        });
         random.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 randomActionPerformed(evt);
             }
         });
         getContentPane().add(random);
-        random.setBounds(240, 130, 150, 23);
+        random.setBounds(240, 130, 150, 30);
 
-        stats.setText("STATS");
+        stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/statB.png"))); // NOI18N
+        stats.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        stats.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                statsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                statsMouseExited(evt);
+            }
+        });
         stats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statsActionPerformed(evt);
             }
         });
         getContentPane().add(stats);
-        stats.setBounds(400, 130, 200, 23);
+        stats.setBounds(400, 130, 200, 30);
 
         tQuantum.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        tQuantum.setToolTipText("");
+        tQuantum.setBorder(null);
+        tQuantum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(tQuantum);
-        tQuantum.setBounds(289, 40, 150, 20);
+        tQuantum.setBounds(289, 40, 150, 30);
 
         backB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/backB.png"))); // NOI18N
         backB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -385,7 +444,6 @@ public class Schedule extends javax.swing.JFrame {
     }//GEN-LAST:event_randomCActionPerformed
 
     private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
-        // TODO add your handling code here:
         Stats s = new Stats();
         for(int disp=0; disp<processNumber.getValue();disp++)
         {
@@ -550,6 +608,54 @@ public class Schedule extends javax.swing.JFrame {
     private void closeBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBMouseExited
         closeB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/closeB.png")));
     }//GEN-LAST:event_closeBMouseExited
+
+    private void randomCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomCMouseEntered
+        randomC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random1B-H.png")));
+    }//GEN-LAST:event_randomCMouseEntered
+
+    private void randomCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomCMouseExited
+        randomC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random1B.png")));
+    }//GEN-LAST:event_randomCMouseExited
+
+    private void randomMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomMouseEntered
+        random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random2B-H.png")));
+    }//GEN-LAST:event_randomMouseEntered
+
+    private void randomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomMouseExited
+        random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random2B.png")));
+    }//GEN-LAST:event_randomMouseExited
+
+    private void randomwATMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomwATMouseEntered
+        randomwAT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random3B-H.png")));
+    }//GEN-LAST:event_randomwATMouseEntered
+
+    private void randomwATMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomwATMouseExited
+        randomwAT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/random3B.png")));
+    }//GEN-LAST:event_randomwATMouseExited
+
+    private void statsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statsMouseEntered
+        stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/statB-H.png")));
+    }//GEN-LAST:event_statsMouseEntered
+
+    private void statsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statsMouseExited
+        stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/statB.png")));
+    }//GEN-LAST:event_statsMouseExited
+
+    private void secondButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secondButtonMouseEntered
+        secondButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/finishB-H.png")));
+    }//GEN-LAST:event_secondButtonMouseEntered
+
+    private void secondButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_secondButtonMouseExited
+        secondButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/finishB.png")));
+    }//GEN-LAST:event_secondButtonMouseExited
+
+    private void firstButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstButtonMouseEntered
+        firstButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/nextB-H.png")));
+    }//GEN-LAST:event_firstButtonMouseEntered
+
+    private void firstButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstButtonMouseExited
+        firstButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ospck/assets/nextB.png")));
+    }//GEN-LAST:event_firstButtonMouseExited
 
     /**
      * @param args the command line arguments
